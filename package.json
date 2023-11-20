@@ -1,0 +1,22 @@
+{
+  "name": "bug-repoer-ms",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "#"
+  },
+  "repository": {
+    "type": "git",
+    "url": "#"
+  },
+  "keywords": [
+    "#"
+  ],
+  "author": "Paul Ehrling",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^8.0.1",
+    "typescript": "^5.2.2"
+  }
+}
