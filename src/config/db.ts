@@ -15,13 +15,4 @@ const connectToDatabase = async () => {
     }
 };
 
-const getDatabase = () => {
-    const dbName = process.env.DB_Name;
-    if (!dbName) {
-        throw new Error('DB_Name environment variable is not set.');
-    }
-
-    return mongoose.connection.collection(dbName);
-};
-
-export { connectToDatabase, getDatabase };
+export { connectToDatabase };
