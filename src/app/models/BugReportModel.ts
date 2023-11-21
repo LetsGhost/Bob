@@ -4,10 +4,11 @@ interface IBugReportModel {
     title: string;
     description: string;
     tags: string[];
-    tag: string;
-    status: string;
-    priority: string;
+    tag: "Backend" | "Frontend" | "Nothing";
+    status: "open" | "closed" | "in-progress";
+    priority: "low" | "medium" | "high";
     reportedBy: string;
+    assignedTo?: string;
 }
 
 interface BugReportModelPlanDocument extends Document {
@@ -21,10 +22,11 @@ const BugReportModelSchema = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
     tags: { type: [String], required: true },
-    tag: { type: String, required: true },
-    status: { type: String, required: true },
-    priority: { type: String, required: true },
+    tag: { type: String, required: true, default: "Nothing"},
+    status: { type: String, required: true, default: "open" },
+    priority: { type: String },
     reportedBy: { type: String, required: true },
+    assignedTo: { type: String },
 });
 
 const BugReportModelPlanDocumentSchema = new Schema({

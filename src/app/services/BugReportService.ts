@@ -4,9 +4,6 @@ interface BugReportModel {
     title: string;
     description: string;
     tags: string[];
-    tag: string;
-    status: string;
-    priority: string;
     reportedBy: string;
 }
 
@@ -54,6 +51,28 @@ class BugReportService {
                 message: "Internal Server Error"
             }
         }
+    }
+
+    async updateTags(bugReportId: string, tags: string){
+
+    }
+
+    async updateStatus(bugReportId: string, status: string){
+
+    }
+
+    async updatePriority(bugReportId: string, priority: string){
+        const bugReport = await BugReportModel.findById(bugReportId);
+
+        if(!bugReport){
+            return {
+                success: false,
+                code: 404,
+                message: "Bug Report not found"
+            }
+        }
+
+        
     }
 }
 
