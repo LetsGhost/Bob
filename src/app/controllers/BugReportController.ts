@@ -29,6 +29,34 @@ class BugReportController {
             });
         }
     }
+
+    async deleteBugReport(req: Request, res: Response){
+        try{
+            const {success, code, message} = await BugReportService.deleteBugReport(req.params.bugReportId);
+            return res.status(code).json({success, message});
+        } catch(error){
+            console.log("Error deleting bug report: ", error)
+            return res.status(500).json({
+                success: false,
+                code: 500,
+                message: "Internal Server Error"
+            });
+        }
+    }
+
+    async updatePritoity(req: Request, res: Response){
+        try{
+            //const {success, code, message} = await BugReportService.updatePriority(req.params.bugReportId, req.body.priority);
+            //return res.status(code).json({success, message});
+        } catch(error){
+            console.log("Error updating bug report: ", error)
+            return res.status(500).json({
+                success: false,
+                code: 500,
+                message: "Internal Server Error"
+            });
+        }
+    }
 }
 
 export default new BugReportController();

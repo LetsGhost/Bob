@@ -4,9 +4,9 @@ interface IBugReportModel {
     title: string;
     description: string;
     tags: string[];
-    tag: "Backend" | "Frontend" | "Nothing";
-    status: "open" | "closed" | "in-progress";
-    priority: "low" | "medium" | "high";
+    tag: string;
+    status: string;
+    priority: string;
     reportedBy: string;
     assignedTo?: string;
 }
@@ -22,9 +22,9 @@ const BugReportModelSchema = new Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
     tags: { type: [String], required: true },
-    tag: { type: String, required: true, default: "Nothing"},
+    tag: { type: String, required: true, default: "nothing"},
     status: { type: String, required: true, default: "open" },
-    priority: { type: String },
+    priority: { type: String, default: "low" },
     reportedBy: { type: String, required: true },
     assignedTo: { type: String },
 });

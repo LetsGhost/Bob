@@ -4,7 +4,11 @@ interface BugReportModel {
     title: string;
     description: string;
     tags: string[];
+    tag: string;
+    status: string;
+    priority: string;
     reportedBy: string;
+    assignedTo?: string;
 }
 
 interface BugReportModelPlanDocument extends Document {
@@ -53,6 +57,32 @@ class BugReportService {
         }
     }
 
+    async deleteBugReport(bugReportId: string){
+        try{
+            const bugReport = await BugReportModel.findByIdAndDelete(bugReportId);
+
+            if(!bugReport){
+                return {
+                    success: false,
+                    code: 404,
+                    message: "Bug report not found"
+                }
+            }
+
+            return {
+                success: true,
+                code: 200,
+            }
+        } catch(error){
+            console.log("Error deleting bug report: ", error)
+            return {
+                success: false,
+                code: 500,
+                message: "Internal Server Error"
+            }
+        }
+    }
+
     async updateTags(bugReportId: string, tags: string){
 
     }
@@ -61,19 +91,28 @@ class BugReportService {
 
     }
 
+    // Doesnt work i dont know why
+    /*
     async updatePriority(bugReportId: string, priority: string){
         const bugReport = await BugReportModel.findById(bugReportId);
 
+            
         if(!bugReport){
             return {
                 success: false,
                 code: 404,
-                message: "Bug Report not found"
+                message: "Bug report not found"
             }
         }
-
         
+        bugReport.updateOne({priority: priority});
+
+        return {
+            success: true,
+            code: 200,
+        }        
     }
+    */
 }
 
 export default new BugReportService();
