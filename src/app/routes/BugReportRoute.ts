@@ -9,6 +9,7 @@ const router = express.Router();
 
 router.post("/createBugReport", BugReportController.createBugReport);
 router.get("/getBugReports", AuthenticateToken.authenticateToken, BugReportController.getBugReports);
+router.get("/getBugReport/:bugReportId", BugReportController.getBugReport);
 router.patch("/updatePriority/:bugReportId", BugReportController.updatePritoity);
 
 export default router

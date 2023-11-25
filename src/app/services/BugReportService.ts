@@ -57,6 +57,33 @@ class BugReportService {
         }
     }
 
+    async getBugReport(bugReportId: string){
+        try{
+            const bugReport = await BugReportModel.findById(bugReportId);
+
+            if(!bugReport){
+                return {
+                    success: false,
+                    code: 404,
+                    message: "Bug report not found"
+                }
+            }
+            
+            return {
+                success: true,
+                code: 200,
+                bugReport
+            }
+        } catch(error){
+            console.log("Error getting bug report: ", error)
+            return {
+                success: false,
+                code: 500,
+                message: "Internal Server Error"
+            }
+        }
+    }
+
     async deleteBugReport(bugReportId: string){
         try{
             const bugReport = await BugReportModel.findByIdAndDelete(bugReportId);

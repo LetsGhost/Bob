@@ -30,6 +30,20 @@ class BugReportController {
         }
     }
 
+    async getBugReport(req: Request, res: Response){
+        try{
+            const {success, code, message, bugReport} = await BugReportService.getBugReport(req.params.bugReportId);
+            return res.status(code).json({success, message, bugReport});
+        } catch(error){
+            console.log("Error getting bug report: ", error)
+            return res.status(500).json({
+                success: false,
+                code: 500,
+                message: "Internal Server Error"
+            });
+        }
+    }
+
     async deleteBugReport(req: Request, res: Response){
         try{
             const {success, code, message} = await BugReportService.deleteBugReport(req.params.bugReportId);
