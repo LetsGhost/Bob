@@ -7,6 +7,12 @@ class RedisAnalyticsController {
         const durations = await RedisAnalyticsService.getDurations(path);
         res.json(durations);
     }
+
+    async getResourceUsage(req: Request, res: Response) {
+        const key = req.params.key;
+        const usage = await RedisAnalyticsService.getResourceUsage();
+        res.json(usage);
+    }
 }
 
 export default new RedisAnalyticsController();

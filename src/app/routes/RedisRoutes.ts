@@ -11,5 +11,6 @@ import RedisAnalyticsController from '../controllers/RedisAnalyticsController';
 const router = express.Router();
 
 router.get('/getDurations/:path', RedisAnalyticsController.getDurations);
+router.get('/getResourceUsage', RedisAnalyticsController.getResourceUsage);
 
 export default router;
