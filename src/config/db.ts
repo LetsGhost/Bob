@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import {redisClient} from './redis';
+import logger from './winstonLogger';
 
 const connectToDatabase = async () => {
     try {
