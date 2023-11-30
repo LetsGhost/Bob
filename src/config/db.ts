@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import logger from './winstonLogger';
 
 const connectToDatabase = async () => {
     try {
@@ -16,4 +15,22 @@ const connectToDatabase = async () => {
     }
 };
 
-export { connectToDatabase };
+const logDatabaseStats = async () => {
+    mongoose.connection.on('connected', async () => {
+        try {
+            const stats = await mongoose.connection.db.stats();
+
+            if (!redisClient) {
+                console.error('Redis client is not connected.');
+                return;
+            }
+
+            // Store the stats in Redis
+            redisClient.set('dbStats', JSON.stringify(stats));
+        } catch (err) {
+            console.error(err);
+        }
+    });
+};
+
+export { connectToDatabase, logDatabaseStats };

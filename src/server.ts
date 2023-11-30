@@ -6,7 +6,7 @@ import cookieParser from 'cookie-parser';
 dotenv.config();
 
 // Routes
-import { connectToDatabase, } from "./config/db";
+import { connectToDatabase, logDatabaseStats } from "./config/db";
 import { connectToRedis } from './config/redis';
 
 import bugReportRoutes from "./app/routes/BugReportRoute";
@@ -23,6 +23,9 @@ server.use("/redis", redisRoutes)
 
 connectToDatabase()
 connectToRedis()
+
+setInterval(logDatabaseStats, 1000 * 60 * 60 * 24);
+logDatabaseStats();
 
 server.listen(process.env.PORT, () => {
     console.log(`Server is running on port ${process.env.PORT}`)
