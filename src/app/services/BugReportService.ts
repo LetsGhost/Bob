@@ -1,4 +1,5 @@
 import BugReportModel from "../models/BugReportModel";
+import logger from "../../config/winstonLogger";
 
 interface BugReportModel {
     title: string;
@@ -29,7 +30,7 @@ class BugReportService {
                 code: 201,
             }
         } catch(error){
-            console.log("Error creating bug report: ", error)
+            logger.error("Error creating bug report: ", error, {service: "BugReportService.createBugReport"})
             return {
                 success: false,
                 code: 500,
@@ -48,7 +49,7 @@ class BugReportService {
                 bugReports
             }
         } catch(error){
-            console.log("Error getting bug reports: ", error)
+            logger.error("Error getting bug reports: ", error, {service: "BugReportService.getBugReports"})
             return {
                 success: false,
                 code: 500,
@@ -75,7 +76,7 @@ class BugReportService {
                 bugReport
             }
         } catch(error){
-            console.log("Error getting bug report: ", error)
+            logger.error("Error getting bug report: ", error, {service: "BugReportService.getBugReport"})
             return {
                 success: false,
                 code: 500,
@@ -101,7 +102,7 @@ class BugReportService {
                 code: 200,
             }
         } catch(error){
-            console.log("Error deleting bug report: ", error)
+            logger.error("Error deleting bug report: ", error, {service: "BugReportService.deleteBugReport"})
             return {
                 success: false,
                 code: 500,
