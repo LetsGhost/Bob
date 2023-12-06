@@ -43,6 +43,26 @@ class RedisAnalyticsController {
             });
         }
     }
+
+    async getMethodCounter(req: Request, res: Response) {
+        try{
+            const method = req.params.method;
+            const counter = await RedisAnalyticsService.getMethodCounter(method);
+
+            if(counter){
+                logger.info("Method counter retrieved successfully: " + getClientIp(req), {service: "RedisAnalyticsController.getMethodCounter"})
+            }
+
+            res.json(counter);
+        } catch(error){
+            logger.error("Error getting method counter: ", error, {service: "RedisAnalyticsController.getMethodCounter"})
+            return res.status(500).json({
+                success: false,
+                code: 500,
+                message: "Internal Server Error"
+            });
+        }
+    }
 }
 
 export default new RedisAnalyticsController();
