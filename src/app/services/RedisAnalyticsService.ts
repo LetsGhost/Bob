@@ -1,5 +1,5 @@
-import { redisClient } from '../../config/redis';
-import logger from '../../config/winstonLogger';
+import { redisClient } from '../../config/redis.js';
+import logger from '../../config/winstonLogger.js';
 
 class RedisAnalyticsService{
   async getDurations(path: string): Promise<string[]> {

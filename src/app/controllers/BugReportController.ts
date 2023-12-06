@@ -1,7 +1,6 @@
 import { Request, Response } from "express";
-import BugReportService from "../services/BugReportService";
-import logger from "../../config/winstonLogger";
-import { log } from "console";
+import BugReportService from "../services/BugReportService.js";
+import logger from "../../config/winstonLogger.js";
 
 class BugReportController {
     async createBugReport(req: Request, res: Response){

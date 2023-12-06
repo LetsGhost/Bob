@@ -6,11 +6,12 @@ import cookieParser from 'cookie-parser';
 dotenv.config();
 
 // Routes
-import { connectToDatabase, logDatabaseStats } from "./config/db";
-import { connectToRedis } from './config/redis';
+import { connectToDatabase, logDatabaseStats } from "./config/db.js";
+import { connectToRedis } from './config/redis.js';
 
-import bugReportRoutes from "./app/routes/BugReportRoute";
-import redisRoutes from "./app/routes/RedisRoutes";
+import bugReportRoutes from "./app/routes/BugReportRoute.js";
+import redisRoutes from "./app/routes/RedisRoutes.js";
+import logger from './config/winstonLogger.js';
 
 const server = express();
 
@@ -28,5 +29,5 @@ setInterval(logDatabaseStats, 1000 * 60 * 60 * 24);
 logDatabaseStats();
 
 server.listen(process.env.PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT}`)
+    logger.info(`Server listening on port ${process.env.PORT}`, {service: "Server"});
 });

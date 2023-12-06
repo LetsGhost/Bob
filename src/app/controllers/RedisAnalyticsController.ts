@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
-import RedisAnalyticsService from '../services/RedisAnalyticsService';
-import logger from '../../config/winstonLogger';
-import getClientIp from '../Utils/ipUtils';
+import RedisAnalyticsService from '../services/RedisAnalyticsService.js';
+import logger from '../../config/winstonLogger.js';
+import getClientIp from '../Utils/ipUtils.js';
 
 class RedisAnalyticsController {
     async getDurations(req: Request, res: Response) {

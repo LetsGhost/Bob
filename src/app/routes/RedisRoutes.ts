@@ -4,10 +4,10 @@ dotenv.config();
 
 // Import Middlewares
 
-import AuthenticateRole from '../middleware/AuthenticateRole';
-import AuthenticateToken from '../middleware/AuthenticateToken';
+import AuthenticateRole from '../middleware/AuthenticateRole.js';
+import AuthenticateToken from '../middleware/AuthenticateToken.js';
 
-import RedisAnalyticsController from '../controllers/RedisAnalyticsController';
+import RedisAnalyticsController from '../controllers/RedisAnalyticsController.js';
 
 // Import routes
 const router = express.Router();

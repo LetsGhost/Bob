@@ -1,5 +1,5 @@
-import BugReportModel from "../models/BugReportModel";
-import logger from "../../config/winstonLogger";
+import BugReportModel from "../models/BugReportModel.js";
+import logger from "../../config/winstonLogger.js";
 
 interface BugReportModel {
     title: string;
