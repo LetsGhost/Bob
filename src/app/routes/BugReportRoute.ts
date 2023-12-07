@@ -17,6 +17,6 @@ if(process.env.NODE_ENV === 'production') {
 router.post("/createBugReport", BugReportController.createBugReport);
 router.get("/getBugReports", AuthenticateToken.authenticateToken, BugReportController.getBugReports);
 router.get("/getBugReport/:bugReportId", BugReportController.getBugReport);
-router.patch("/updatePriority/:bugReportId", BugReportController.updatePritoity);
+router.patch("/updateBugReport/:bugReportId", BugReportController.updateBugReport);
 
 export default router

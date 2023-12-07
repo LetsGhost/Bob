@@ -1,6 +1,6 @@
 import mongoose, { Document, Model, Schema } from 'mongoose';
 
-interface IBugReportModel {
+interface IBugReport {
     title: string;
     description: string;
     tags: string[];
@@ -9,16 +9,12 @@ interface IBugReportModel {
     priority: string;
     reportedBy: string;
     assignedTo?: string;
-}
-
-interface BugReportModelPlanDocument extends Document {
-    bugReportModel: IBugReportModel;
     createdAt: Date;
 }
 
-interface BugReportModelPlan extends Model<BugReportModelPlanDocument> {}
+interface BugReportDocument extends Document, IBugReport {}
 
-const BugReportModelSchema = new Schema({
+const BugReportSchema = new Schema<BugReportDocument>({
     title: { type: String, required: true },
     description: { type: String, required: true },
     tags: { type: [String], required: true },
@@ -27,13 +23,9 @@ const BugReportModelSchema = new Schema({
     priority: { type: String, default: "low" },
     reportedBy: { type: String, required: true },
     assignedTo: { type: String },
+    createdAt: { type: Date, default: Date.now },
 });
 
-const BugReportModelPlanDocumentSchema = new Schema({
-    bugReportModel: { type: BugReportModelSchema, required: true },
-    createdAt: { type: Date, default: Date.now },
-})
-
-const BugReportModel = mongoose.model<BugReportModelPlan>('BugReport', BugReportModelPlanDocumentSchema);
+const BugReportModel = mongoose.model<BugReportDocument>('BugReport', BugReportSchema);
 
 export default BugReportModel;

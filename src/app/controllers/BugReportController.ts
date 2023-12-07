@@ -69,12 +69,18 @@ class BugReportController {
         }
     }
 
-    async updatePritoity(req: Request, res: Response){
+    async updateBugReport(req: Request, res: Response){
         try{
-            //const {success, code, message} = await BugReportService.updatePriority(req.params.bugReportId, req.body.priority);
-            //return res.status(code).json({success, message});
+            const update = req.body; // Get the update from the request body
+            const {success, code, message} = await BugReportService.updateBugReport(req.params.bugReportId, update);
+
+            if(success){
+                logger.info("Bug report updated successfully", {service: "BugReportController.updateBugReport"})
+            }
+
+            return res.status(code).json({success, message});
         } catch(error){
-            logger.error("Error updating bug report priority: ", error, {service: "BugReportController.updatePriority"})
+            logger.error("Error updating bug report: ", error, {service: "BugReportController.updateBugReport"})
             return res.status(500).json({
                 success: false,
                 code: 500,

@@ -1,7 +1,7 @@
 import BugReportModel from "../models/BugReportModel.js";
 import logger from "../../config/winstonLogger.js";
 
-interface BugReportModel {
+interface IBugReport {
     title: string;
     description: string;
     tags: string[];
@@ -10,20 +10,14 @@ interface BugReportModel {
     priority: string;
     reportedBy: string;
     assignedTo?: string;
-}
-
-interface BugReportModelPlanDocument extends Document {
-    bugReportModel: BugReportModel;
     createdAt: Date;
 }
 
 class BugReportService {
-    async createBugReport(bugReport: BugReportModelPlanDocument){
+    async createBugReport(bugReport: IBugReport){
         try{
-            const newBugReport = new BugReportModel({
-                bugReportModel: bugReport
-            });
-            newBugReport.save();
+            const newBugReport = new BugReportModel(bugReport);
+            await newBugReport.save();
 
             return {
                 success: true,
@@ -111,36 +105,34 @@ class BugReportService {
         }
     }
 
-    async updateTags(bugReportId: string, tags: string){
+    async updateBugReport(bugReportId: string, update: Partial<IBugReport>){
+        try {
+            const updatedBugReport = await BugReportModel.findByIdAndUpdate(bugReportId, update, { new: true })
+            if (!updatedBugReport) {
+                return {
+                    success: false,
+                    code: 404,
+                    message: "Bug report not found"
+                }
+            }
 
-    }
-
-    async updateStatus(bugReportId: string, status: string){
-
-    }
-
-    // Doesnt work i dont know why
-    /*
-    async updatePriority(bugReportId: string, priority: string){
-        const bugReport = await BugReportModel.findById(bugReportId);
-
-            
-        if(!bugReport){
+            return {
+                success: true,
+                code: 200,
+                data: updatedBugReport
+            }
+        } catch (error) {
             return {
                 success: false,
-                code: 404,
-                message: "Bug report not found"
+                code: 500,
+                message: "Internal Server Error"
             }
         }
-        
-        bugReport.updateOne({priority: priority});
-
-        return {
-            success: true,
-            code: 200,
-        }        
     }
-    */
+
+
+    // Doesnt work i dont know why
+
 }
 
 export default new BugReportService();
